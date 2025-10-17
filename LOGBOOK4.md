@@ -1,4 +1,12 @@
-# Lab \#4
+# group05 
+
+## Team members
+Afonso Saraiva: up202304461@up.pt
+Daniel Marques: up202306365@up.pt
+Inês Francisco: up202304726@up.pt
+
+
+# Environment Variable and Set-UID
 
 ## Task \#1
 
