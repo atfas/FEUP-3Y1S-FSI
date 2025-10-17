@@ -4,7 +4,7 @@
 
 Environment variables are dynamic values that influence the behavior and configuration of running processes in Unix-like systems. Both the **printenv** and the **env** commands print the enviromental variables. The **export** command is used to set enviromental variables while the **unset** command is used to unset environment variables. Below there’s an example demonstrating all 4 of them.
 
-[//]: <> (Images/task1.png)
+![//](Images/logbook4/task1.png)
 
 ## Task \#2
 
@@ -13,17 +13,17 @@ To determine whether a child process created with the **fork()** system call inh
 The initial program calls **fork()** to create a child process.  
 In the child branch (after checking pid \== 0), the program executes **printenv()**, which displays all environment variables available to the child process. We compile and run the program and save the output result in a file called **file1**.
 
-[//]: <> (Images/task2-codebefore.png)
-[//]: <> (Images/task2-commandfile1.png)
+![//](Images/logbook4/task2-codebefore.png)
+![//](Images/logbook4/task2-commandfile1.png)
 
 Then, we proceed to comment out the **printenv()** inside the child process and uncomment out the one in the parent process and execute the code again. This time we save the output result to a file called **file2**.
 
-[//]: <> (Images/task2-codeafter.png)
-[//]: <> (Images/task2-commandfile2.png)
+![//](Images/logbook4/task2-codeafter.png)
+![//](Images/logbook4/task2-commandfile2.png)
 
 After saving both outputs to the respective files, the **diff** command is used in order to compare the files contents. The results show that the child process inherits all environment variables from its parent when created using the **fork()** system call. Both the parent and child have identical environment variable lists.
 
-[//]: <> (Images/task2-diffresult.png)
+![//](Images/logbook4/task2-diffresult.png)
 
 
 ## Task \#3
@@ -38,19 +38,19 @@ When **execve()** is called, the programmer can specify:
 
 In this initial version, the program uses **execve()** to execute **/usr/bin/env**, which prints the environment variables of the current process. 
 
-[//]: <> (Images/task3-codebefore.png)
+![//](Images/logbook4/task3-codebefore.png)
 
 The output of the program shows no environment variables. This happens because we explicitly passed **NULL** as the environment argument, meaning the new program started with an empty environment.  
 
-[//]: <> (Images/task3-before.png)
+![//](Images/logbook4/task3-before.png)
 
 Next, we modified the code to pass the current environment (**environ**) from the calling process instead of **NULL**.
 
-[//]: <> (Images/task3-codeafter.png)
+![//](Images/logbook4/task3-codeafter.png)
 
 After this modification, the output displays the full list of environment variables of the process. This confirms that, when the environment pointer (**environ**) is passed as the third argument, the new program receives and uses the same environment variables as the calling process.
 
-[//]: <> (Images/task3-after.png)
+![//](Images/logbook4/task3-after.png)
 
 This demonstrates that a program executed via **execve()** does not automatically inherit the environment of the calling process, and its environment is entirely determined by the explicit pointer passed as the third argument, allowing precise control over which variables are available to the new process.
 
@@ -60,11 +60,11 @@ The **system()** function is used to execute a command, but unlike **execve()**,
 
 The program calls **system("(usr/bin/env")** to execute the **env** command via the shell. 
 
-[//]: <> (Images/task4-code.png)
+![//](Images/logbook4/task4-code.png)
 
 The output displays all the environment variables of the calling process.
 
-[//]: <> (Images/task4.png)
+![//](Images/logbook4/task4.png)
 
 This experiment demonstrates that any program executed via **system()** inherits the environment variables of the calling process because **system()** internally invokes **/bin/sh** through **execl()**, which automatically passes the environment array, thereby providing seamless access to all existing variables without needing explicit specification.
 
@@ -74,7 +74,7 @@ A **Set-UID** (Set User ID) program is a special type of executable that runs wi
 
 To convert a program, in this case a program called **foo**, into a **Set-UID** program owned by the root, the following commands were used:
 
-[//]: <> (Images/task5-commands.png)
+![//](Images/logbook4/task5-commands.png)
 
 The **sudo chown root foo** changes the owner of the file **foo** to root. The **sudo chmod 4755 foo** command sets up the permission settings with the number 4755:
 
@@ -84,11 +84,11 @@ The **sudo chown root foo** changes the owner of the file **foo** to root. The *
 * 5 → gives others **read** and **execute** permissions.
 
 While logged in as a normal user, three environment variables were exported in the shell  
-[//]: <> (Images/task5-exports.png)
+![//](Images/logbook4/task5-exports.png)
 The **Set-UID** program was executed and its output filtered to search for specific variables  
-[//]: <> (Images/task5-PATH.png)
-[//]: <> (Images/task5-COURSE_NAME.png)
-[//]: <> (Images/task5-LD-LIBRARY-PATH.png)
+![//](Images/logbook4/task5-PATH.png)
+![//](Images/logbook4/task5-COURSE_NAME.png)
+![//](Images/logbook4/task5-LD-LIBRARY-PATH.png)
 
 The environment variables behave differently under **Set-UID** execution depending on their potential impact on system security. Both the **PATH** and **COURSE\_NAME** variables are passed down to the **Set-UID** process. The **LD\_LIBRARY\_PATH** variable, however, is stripped out entirely because allowing it could enable an attacker to load unauthorized libraries with root privileges.
 
@@ -100,23 +100,23 @@ Calling **system()** within a **Set-UID** program is quite dangerous. This is be
 
 To demonstrate how dangerous this could be, we started by creating a small program that executes the **/bin/ls** command; however, it is only used the relative path for the **ls** command, rather than the absolute path.
 
-[//]: <> (Images/task6-code.png)
+![//](Images/logbook4/task6-code.png)
 
 Then, we proceeded to change the ownership of the program to root and made it a **Set-UID** program.  
 
-[//]: <> (Images/task6-permission.png)
+![//](Images/logbook4/task6-permission.png)
 
 After that, we created a simple shell script, called **ls,** which is going to serve as our “malicious” code. In this case, the only thing that it does is print a message saying “Attack Successful" and executes the command **whoami,** which shows what user we are.  
 
-[//]: <> (Images/task6-shellcode.png)
+![//](Images/logbook4/task6-shellcode.png)
 
 After that, we changed the **PATH** variable to add the directory where our “malicious” code is to the beginning of the **PATH** environment variable.  
 
-[//]: <> (Images/task6-path.png) 
+![//](Images/logbook4/task6-path.png) 
 
 Finally, we executed the code.  
 
-[//]: <> (Images/task6-firstexecution.png)
+![//](Images/logbook4/task6-firstexecution.png)
 
 What we can observe is that in the end, the code that was executed was in fact the “malicious” code and not what we wanted. This worked because the program relied on the **PATH** to find **ls**, so the shell found and ran our “malicious” **ls** (from the front of **PATH**).
 
@@ -124,11 +124,11 @@ However, the program was not executed with root privileges, but with normal user
 
 So, in order to execute the program with root privileges, we have to use the command below to “**deactivate**” this feature.  
 
-[//]: <> (Images/task6-permissioncommand.png)
+![//](Images/logbook4/task6-permissioncommand.png)
 
 Then we execute the code again.  
 
-[//]: <> (Images/task6-secondexecution.png)
+![//](Images/logbook4/task6-secondexecution.png)
 
 Since the output of **whoami** is **“root”** instead of seed, that shows the process's effective UID was root at that moment, so now the “malicious” code was executed with root privileges.
 
@@ -140,23 +140,23 @@ Knowing this, it's possible, for example, to manipulate files that we were not a
 
 The program below is a simple C utility that displays the contents of a file provided as a command-line argument. When the program starts, it first checks whether the user has entered a filename. If not, it prints the message “Please type a file name.” and exits. If a filename is provided, the program prepares to use the Unix command **/bin/cat**, which prints the contents of a file to standard output. It stores **/bin/cat** as the command to run and the filename as its argument. Next, it dynamically allocates enough memory to build a complete command string such as **"/bin/cat filename"**, and then formats that string using **sprintf()**. After building the command, the program calls the **system()** function to execute it. The **system()** call starts a new shell and runs the **command** string, effectively performing the same action as typing **/bin/cat \<filename**\> in the terminal. As a result, the contents of the specified file are printed to the screen. 
 
-[//]: <> (Images/task8-code.png)
+![//](Images/logbook4/task8-code.png)
 
 To carry out the exploit you first compile the given code. Then you create a file named **test.txt** containing the text “**Hello, this file has text”**. Next make the file owned by **root** and restrict its permissions so only the owner has access, preventing others from reading, writing, or removing it by setting the permissions with “**chmod 700 test.txt”.**
 
-[//]: <> (Images/task8-filecreation.png)
-[//]: <> (Images/task8-textfilepermission.png)
-[//]: <> (Images/task8-textfilelocked.png) 
+![//](Images/logbook4/task8-filecreation.png)
+![//](Images/logbook4/task8-textfilepermission.png)
+![//](Images/logbook4/task8-textfilelocked.png) 
 
 As you can see, we now have a text file that we are not allowed to read its content. Now, in order to read its content, we have to change the ownership to root and make it a **Set-UID** program. If we then run the code and pass it the text filename, we are able to read the contents of the file.
 
-[//]: <> (Images/task8-commands.png)
-[//]: <> (Images/task8-firstexecution.png)
+![//](Images/logbook4/task8-commands.png)
+![//](Images/logbook4/task8-firstexecution.png)
 
 With all this done, it's now possible to exploit this vulnerability of the **system()** and delete the text file using the provided code. To do that we simply execute the code and in the place where we provide the filename, we instead/additionally provide a command to delete the file, in this case the command **“rm test.txt”**. You will be able to successfully delete the file that we had no permissions to.
 
-[//]: <> (Images/task8-process.png)
-[//]: <> (Images/task8-proof.png)
+![//](Images/logbook4/task8-process.png)
+![//](Images/logbook4/task8-proof.png)
 
 The reason this happens is because of how **system()** works. The **system()** function passes the string we give it to the shell, so the shell interprets and executes it instead of treating it as a single program with arguments. In this case, the program builds the command **"/bin/cat " \+ \<filename\>**. If we input the **\<filename\>** as **test.txt; rm test.txt**, the resulting string becomes **/bin/cat test.txt; rm test.txt.** The shell treats the **;** as a command separator and executes two commands in sequence: **/bin/cat test.txt** and then **rm test.txt**. That is why we are able to delete the **test.txt** file.
 
@@ -168,30 +168,30 @@ The reason this happens is because of how **system()** works. The **system()** f
 
 In order to exploit and understand what **capability leaking** is, there’s some preparation that needs to be done. First we compile the following code:  
 
-[//]: <> (Images/task9-code.png)
+![//](Images/logbook4/task9-code.png)
 
 The program starts by declaring a variable **fd** to store a file descriptor and an array **v** to hold arguments for another program. It then tries to open the file **/etc/zzz** with read and append permissions. If the file opens successfully, it prints the number of the file descriptor that was returned. After that, the program calls **setuid(getuid())**, which sets the effective UID to the real UID. Next, it prepares to run a new program by setting **v\[0\]** to **“/bin/sh”** and **v\[1\]** to **NULL**. Finally, it calls **execve()** to replace itself with a new shell process (**/bin/sh**).  
 After compiling the code, we then change its ownership to root and make it a **Set-UID** program.
 
-[//]: <> (Images/task9-prep1.png)
+![//](Images/logbook4/task9-prep1.png)
 
 Now, we create a file called **/etc/zzz** which is gonna be our target file containing the sentence “Hello, this is the /etc/zzz important file”.
 
-[//]: <> (Images/task9-contentbefore.png)
+![//](Images/logbook4/task9-contentbefore.png)
 
 Afterwards, we change the ownership of our recently created file, the **/etc/zzz** file, and set its permissions.  
 
-[//]: <> (Images/task9-prep2.png)
+![//](Images/logbook4/task9-prep2.png)
 
 Now we have all the preparations necessary to exploit the program. If we run it normally and try to write to the target file like we would normally do using the command line, the program won’t let us, since we don’t have the permission to do that as we are a normal user (**seed**). 
 
-[//]: <> (Images/task9-before.png)
+![//](Images/logbook4/task9-before.png)
 
 ***Execution***
 
 In order to be able to write in the target file is by making use of the capabilities obtained while the process was still a privileged process. By executing the command used below, while the process is running, without privileges, we can write new content to a file, even without having privileged access.   
 
-[//]: <> (Images/task9-after.png)
+![//](Images/logbook4/task9-after.png)
 
 ***Explanation***
 
