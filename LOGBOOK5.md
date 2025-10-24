@@ -29,14 +29,14 @@ This is necessary because in Ubuntu, /bin/sh is a symbolic link pointing to /bin
 We cannot simply compile C code and use the resulting binary as shellcode. The compiled binary contains additional components such as headers, library dependencies, and initialization code that make it unsuitable for direct injection. 
 Also, the binary code may contain null bytes (\0), which would terminate the ``strcopy()`` prematurely and prevent the entire shellcode from being injected.
 
-Therefore as said in the lab, the most effective way to write shellcode is to use assembly code,because it allows precise control over the generated binary code, enabling us to avoid null bytes and create compact code.
+Therefore as said in the lab, the most effective way to write shellcode is to use assembly code, because it allows precise control over the generated binary code, enabling us to avoid null bytes and create compact code.
 
 ![//](Images/logbook5/task1-01.png)
 
-Soo as we can see in the provided code, the shellcode array contains the machine code instructions in hexadecimal format. The code includes 64 bit and 32 bit shellcode.
+So as we can see in the provided code, the shellcode array contains the machine code instructions in hexadecimal format. The code includes 64 bit and 32 bit shellcode.
 
-The preprocessor directive #if x86_64 automatically selects the appropriate version based on the system architecture
-Then a buffer code of 500 bytes is created on the stack to store the shellcode, ``strcpy()`` function copies the shellcode from the constant array into the code buffer after that ``func`` is created and cast to point to the code buffer. This treats the shellcode bytes as executable instructions
+The preprocessor directive #if x86_64 automatically selects the appropriate version based on the system architecture.
+Then a buffer code of 500 bytes is created on the stack to store the shellcode, ``strcpy()`` function copies the shellcode from the constant array into the code buffer after that ``func`` is created and cast to point to the code buffer. This treats the shellcode bytes as executable instructions.
 
 We also notice the must use of the ``-z execstack`` option to allow code execution from the stack.
 
