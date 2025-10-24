@@ -144,7 +144,7 @@ We corrected the exploit by setting ``ret = 0xffffc9f4 + 350`` (the exact buffer
 
 ## Question \#2
 
-The buffer begins at 0xffffca14 and is filled with 0x90 (NOP) instructions, creating a NOP sled that increases the likelihood of landing in the shellcode. During the overflow the saved return address (EIP) at 0xffffcaac was overwritten with 0xffffcb72, which lies roughly 66 bytes before the shellcode start (0xffffcbb4) and therefore points into the NOP sled. When the function returns, execution continues at 0xffffcb72, slides through the NOPs, and eventually reaches the shellcode — resulting in execution of the injected code and spawning a shell.
+The vulnerable buffer begins at ``0xffffca14`` and was prefilled with 0x90 (NOP) instructions to form a NOP sled.A NOP (No OPeration) instruction performs no action other than advancing the CPU to the next instruction, so filling the buffer with 0x90 bytes creates a landing zone that increases the probability that an imprecise jump will still reach the payload. The overflow then overwrote the saved return address (EIP) stored at ``0xffffcaac`` with ``0xffffcb72``, which lies approximately 66 bytes before the shellcode start at ``0xffffcbb4``. When the function returns, the CPU begins the execution at ``0xffffcb72``, executes a sequence of NOPs (the “sled”), and eventually reaches the shellcode, resulting in execution of the injected code.
 
 | Element                           | Address | Description                                                     |
 | --------------------------------- | ------------- | --------------------------------------------------------------- |
