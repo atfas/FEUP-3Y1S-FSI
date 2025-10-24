@@ -61,7 +61,7 @@ The vulnerability lies in the bof() function, which declares a buffer of only 10
 
  The ``strcpy()`` function does not verify the size of the destination buffer, simply copying all data until it encounters a null character (``\0``), even if this exceeds the buffer's limits. This lack of validation allows excess data to overwrite adjacent memory areas on the stack, including the function's return address, thus enabling the execution of malicious code through a buffer-overflow attack.
 
-![//](Images/logbook5/task2-01.png)
+![//](Images/logbook5/task2-01.PNG)
 
 We modified the L1 variable in the exploit code to 100 as tasked, and executed the Makefile. We can observe that in addition to compiling the program, it also executes `sudo chown root stack-L1` and `sudo chmod 4755 stack-L1` (as explained in logbook 4), changing the ownership to root and setting the appropriate permissions where:
 
