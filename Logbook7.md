@@ -39,7 +39,7 @@ The attack was successful. When Boby visited Alice's profile, the alert pop-up a
 This task instead of a simple message, the malicious script now displays the user's session cookies. We can see in the image that we placed the following code in the ```Brief description``` field of Alice's profile:
 
 ```html
-<script>alert("XSS: "+ document.cookie);</script>```
+<script>alert("XSS: "+ document.cookie);</script>
 ```
 
 ![//](Images/logbook7/task2-01.PNG)
