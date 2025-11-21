@@ -29,14 +29,14 @@ This is necessary because in Ubuntu, /bin/sh is a symbolic link pointing to /bin
 We cannot simply compile C code and use the resulting binary as shellcode. The compiled binary contains additional components such as headers, library dependencies, and initialization code that make it unsuitable for direct injection. 
 Also, the binary code may contain null bytes (\0), which would terminate the ``strcopy()`` prematurely and prevent the entire shellcode from being injected.
 
-Therefore as said in the lab, the most effective way to write shellcode is to use assembly code,because it allows precise control over the generated binary code, enabling us to avoid null bytes and create compact code.
+Therefore as said in the lab, the most effective way to write shellcode is to use assembly code, because it allows precise control over the generated binary code, enabling us to avoid null bytes and create compact code.
 
 ![//](Images/logbook5/task1-01.png)
 
-Soo as we can see in the provided code, the shellcode array contains the machine code instructions in hexadecimal format. The code includes 64 bit and 32 bit shellcode.
+So as we can see in the provided code, the shellcode array contains the machine code instructions in hexadecimal format. The code includes 64 bit and 32 bit shellcode.
 
-The preprocessor directive #if x86_64 automatically selects the appropriate version based on the system architecture
-Then a buffer code of 500 bytes is created on the stack to store the shellcode, ``strcpy()`` function copies the shellcode from the constant array into the code buffer after that ``func`` is created and cast to point to the code buffer. This treats the shellcode bytes as executable instructions
+The preprocessor directive #if x86_64 automatically selects the appropriate version based on the system architecture.
+Then a buffer code of 500 bytes is created on the stack to store the shellcode, ``strcpy()`` function copies the shellcode from the constant array into the code buffer after that ``func`` is created and cast to point to the code buffer. This treats the shellcode bytes as executable instructions.
 
 We also notice the must use of the ``-z execstack`` option to allow code execution from the stack.
 
@@ -61,7 +61,7 @@ The vulnerability lies in the bof() function, which declares a buffer of only 10
 
  The ``strcpy()`` function does not verify the size of the destination buffer, simply copying all data until it encounters a null character (``\0``), even if this exceeds the buffer's limits. This lack of validation allows excess data to overwrite adjacent memory areas on the stack, including the function's return address, thus enabling the execution of malicious code through a buffer-overflow attack.
 
-![//](Images/logbook5/task2-01.png)
+![//](Images/logbook5/task2-01.PNG)
 
 We modified the L1 variable in the exploit code to 100 as tasked, and executed the Makefile. We can observe that in addition to compiling the program, it also executes `sudo chown root stack-L1` and `sudo chmod 4755 stack-L1` (as explained in logbook 4), changing the ownership to root and setting the appropriate permissions where:
 
@@ -144,7 +144,7 @@ We corrected the exploit by setting ``ret = 0xffffc9f4 + 350`` (the exact buffer
 
 ## Question \#2
 
-The buffer begins at 0xffffca14 and is filled with 0x90 (NOP) instructions, creating a NOP sled that increases the likelihood of landing in the shellcode. During the overflow the saved return address (EIP) at 0xffffcaac was overwritten with 0xffffcb72, which lies roughly 66 bytes before the shellcode start (0xffffcbb4) and therefore points into the NOP sled. When the function returns, execution continues at 0xffffcb72, slides through the NOPs, and eventually reaches the shellcode — resulting in execution of the injected code and spawning a shell.
+The vulnerable buffer begins at ``0xffffca14`` and was prefilled with 0x90 (NOP) instructions to form a NOP sled.A NOP (No OPeration) instruction performs no action other than advancing the CPU to the next instruction, so filling the buffer with 0x90 bytes creates a landing zone that increases the probability that an imprecise jump will still reach the payload. The overflow then overwrote the saved return address (EIP) stored at ``0xffffcaac`` with ``0xffffcb72``, which lies approximately 66 bytes before the shellcode start at ``0xffffcbb4``. When the function returns, the CPU begins the execution at ``0xffffcb72``, executes a sequence of NOPs (the “sled”), and eventually reaches the shellcode, resulting in execution of the injected code.
 
 | Element                           | Address | Description                                                     |
 | --------------------------------- | ------------- | --------------------------------------------------------------- |
