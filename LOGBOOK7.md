@@ -110,11 +110,11 @@ The script works as follows:
 
 1. **When the page loads (`window.onload`), it executes automatically**
 
-   When the page loads, the script runs automatically because it is wrapped inside window.onload. This ensures that every element of the page—especially the elgg.security.token object—is fully initialized before the malicious code tries to access it. Without this timing, the script wouldn’t be able to retrieve the security tokens Elgg generates for the logged-in user.
+   When the page loads, the script runs automatically because it is wrapped inside window.onload. This ensures that every element of the page, especially the elgg.security.token object, is fully initialized before the malicious code tries to access it. Without this timing, the script wouldn’t be able to retrieve the security tokens Elgg generates for the logged-in user.
 
 2. **It extracts the victim's CSRF tokens from the page (these are valid for the victim's session)**
 
-   Once triggered, the script pulls the victim’s CSRF tokens directly from the page: the timestamp (__elgg_ts) and the session-bound CSRF token (__elgg_token). These two values are essential for passing Elgg’s CSRF checks, and because they belong to the victim rather than Samy, the server interprets any request containing them as legitimate. This is the key reason the attack works—Elgg sees the tokens and assumes the user genuinely initiated the action.
+   Once triggered, the script pulls the victim’s CSRF tokens directly from the page: the timestamp (__elgg_ts) and the session-bound CSRF token (__elgg_token). These two values are essential for passing Elgg’s CSRF checks, and because they belong to the victim rather than Samy, the server interprets any request containing them as legitimate. This is the key reason the attack works, Elgg sees the tokens and assumes the user genuinely initiated the action.
 
 3. **It constructs a valid friend request URL using Samy's ID (59) and the victim's tokens**
 
@@ -144,7 +144,7 @@ This line extracts the victim's CSRF timestamp token and formats it as a URL par
 
 **Line ➁: `var token = "&__elgg_token=" + elgg.security.token.__elgg_token;`**
 
-This line extracts the victim's CSRF security token and formats it as a URL parameter (`&__elgg_token=F4606F16YTHQ0zd-ypjRmq`). This token is the primary CSRF protection—it's a unique string tied to the user's session that proves the request is legitimate.
+This line extracts the victim's CSRF security token and formats it as a URL parameter (`&__elgg_token=F4606F16YTHQ0zd-ypjRmq`). This token is the primary CSRF protection, it's a unique string tied to the user's session that proves the request is legitimate.
 
 **Why Both Are Needed:**
 
