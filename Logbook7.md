@@ -42,7 +42,7 @@ This task instead of a simple message, the malicious script now displays the use
 <script>alert("XSS: "+ document.cookie);</script>
 ```
 
-![//](Images/logbook7/task2-01.PNG)
+![//](Images/logbook7/task2-01.png)
 
 Now, whenever any user views Alice's profile, their cookies are displayed in an alert message. This is dangerous because cookies often contain sensitive authentication data such as session tokens. With these stolen cookies, the attacker could impersonate the victim, hijack their session, and gain full access to their account without ever needing their password.
 
