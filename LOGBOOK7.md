@@ -1,3 +1,10 @@
+# group05 
+
+## Team members
+Afonso Saraiva: up202304461@up.pt
+Daniel Marques: up202306365@up.pt
+Inês Francisco: up202304726@up.pt
+
 # Cross-Site Scripting Attack Lab (Elgg)
 
 ## Environment Setup
@@ -118,7 +125,7 @@ The script works as follows:
 
 3. **It constructs a valid friend request URL using Samy's ID (59) and the victim's tokens**
 
-   Using these stolen tokens, the script then constructs a complete friend-request URL. It sets Samy’s user ID (59) as the target and appends the freshly extracted timestamp and security token, resulting in a URL that mirrors a genuine request exactly like the ones you saw in HTTP Header Live. An XMLHttpRequest object is created so the operation can run silently in the background.
+   Using these stolen tokens, the script then constructs a complete friend-request URL. It sets Samy’s user ID (59) as the target and appends the freshly extracted timestamp and security token, resulting in a URL that mirrors a genuine request exactly like the ones seen in HTTP Header Live. An XMLHttpRequest object is created so the operation can run silently in the background.
 
 4. **It sends an AJAX GET request to add Samy as a friend**
    
@@ -158,7 +165,7 @@ Even if the Elgg interface only exposes the rich-text editor for the “About Me
 
 Also, an attacker isn’t limited to what the UI shows, they can intercept and modify the outgoing request with browser tools or a proxy and inject whatever payload the client-side editor tries to prevent. If the server doesn’t properly sanitize or encode the input, the crafted content will be stored and executed regardless of what the user interface tries to restrict.
 
-In short, hiding the Text mode only obscures the problem, it doesn’t prevent a attacker, real protection must come from server-side validation and output encoding.
+In short, hiding the Text mode only obscures the problem, it doesn’t prevent an attack, real protection must come from server-side validation and output encoding.
 
 # Questão 2
 
