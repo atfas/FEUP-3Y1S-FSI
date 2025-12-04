@@ -45,11 +45,11 @@ From this point, the text has enough information that we can start to look at it
 
 We can deduct some letters here, for example:
 
-c -> M;
-m -> I;
-b -> F;
-i -> L;
-q -> S;
+- c -> M;
+- m -> I;
+- b -> F;
+- i -> L;
+- q -> S;
 
 By discovering all the letters, we are able to decypher the full text.
 
@@ -65,13 +65,13 @@ To play with these modes, we will encrypt a text file called ``plaintext.txt``, 
 
 The command used is ``openssl enc -ciphertype -e/-d -in <file> -out <file> -K <key> -iv <iv> ``. The command uses the following flags:
 
--ciphertype - type of cipher used;
--in <file> - input file;
--out <file> - output file;
--e - encrypt;
--d - decrypt;
--K <key> - key in hex is the next argument;
--iv (Initialization vector) <iv> - iv in hex is the next argument;
+- ciphertype - type of cipher used;
+- in <file> - input file;
+- out <file> - output file;
+- e - encrypt;
+- d - decrypt;
+- K <key> - key in hex is the next argument;
+- iv (Initialization vector) <iv> - iv in hex is the next argument;
 
 # Encryption
 # ECB
@@ -82,11 +82,11 @@ To encrypt the file using the ECB cipher, we use the following command:
 
 The flags specified were:
 
--ciphertype – We used -aes-128-ecb to select the AES-128 cipher in ECB mode.
--e – Indicates encryption.
--in <file> – Specifies the input file, which is ``plaintext.txt``.
--out <file> – Specifies the output file, where the encrypted data is stored ``cipher-ecb.bin``.
--K – Provides the encryption key in hexadecimal format.
+- ciphertype – We used -aes-128-ecb to select the AES-128 cipher in ECB mode.
+- e – Indicates encryption.
+- in <file> – Specifies the input file, which is ``plaintext.txt``.
+- out <file> – Specifies the output file, where the encrypted data is stored ``cipher-ecb.bin``.
+- K – Provides the encryption key in hexadecimal format.
 
 # CBC
 
@@ -96,12 +96,12 @@ To encrypt a file using the CBC cipher, we use the following command:
 
 The flags specified were:
 
--ciphertype – We used -aes-128-cbc to select the AES-128 cipher in CBC mode.
--e – Indicates encryption.
--in <file> – Specifies the input file, which is ``plaintext.txt``.
--out <file> – Specifies the output file, where the encrypted data is stored ``cipher-cbc.bin``.
--K – Provides the encryption key in hexadecimal format.
--iv – Provides the Initialization Vector (IV) in hexadecimal format.
+- ciphertype – We used -aes-128-cbc to select the AES-128 cipher in CBC mode.
+- e – Indicates encryption.
+- in <file> – Specifies the input file, which is ``plaintext.txt``.
+- out <file> – Specifies the output file, where the encrypted data is stored ``cipher-cbc.bin``.
+- K – Provides the encryption key in hexadecimal format.
+- iv – Provides the Initialization Vector (IV) in hexadecimal format.
 
 # CTR
 
@@ -111,12 +111,12 @@ To encrypt a file using the CTR cipher, we use the following command:
 
 The flags specified were:
 
--ciphertype – We used -aes-128-ctr to select the AES-128 cipher in Counter mode.
--e – Indicates encryption.
--in <file> – Specifies the input file, which is ``plaintext.txt``.
--out <file> – Specifies the output file, where the encrypted data is stored ``cipher-ctr.bin``.
--K – Provides the encryption key in hexadecimal format.
--iv – Provides the Initialization Vector (IV). 
+- ciphertype – We used -aes-128-ctr to select the AES-128 cipher in Counter mode.
+- e – Indicates encryption.
+- in <file> – Specifies the input file, which is ``plaintext.txt``.
+- out <file> – Specifies the output file, where the encrypted data is stored ``cipher-ctr.bin``.
+- K – Provides the encryption key in hexadecimal format.
+- iv – Provides the Initialization Vector (IV). 
 
 # Decryption
 # ECB
@@ -127,11 +127,11 @@ To decrypt the file encrypted with ECB mode, we use the following command:
 
 The flags specified were:
 
--ciphertype – We used -aes-128-ecb to select the AES-128 cipher in ECB mode.
--d – Indicates decryption.
--in <file> – Specifies the input file, which is ``cipher-ecb.bin``.
--out <file> – Specifies the output file where the decrypted plaintext is stored ``decrypted-ecb.txt``.
--K – Provides the encryption key in hexadecimal format
+- ciphertype – We used -aes-128-ecb to select the AES-128 cipher in ECB mode.
+- d – Indicates decryption.
+- in <file> – Specifies the input file, which is ``cipher-ecb.bin``.
+- out <file> – Specifies the output file where the decrypted plaintext is stored ``decrypted-ecb.txt``.
+- K – Provides the encryption key in hexadecimal format
 
 # CBC
 
@@ -141,12 +141,12 @@ To decrypt the file encrypted with CBC mode, we use the following command:
 
 The flags specified were:
 
--ciphertype – We used -aes-128-cbc to select the AES-128 cipher in CBC mode.
--d – Indicates decryption.
--in <file> – Specifies the input file, which is ``cipher-cbc.bin``.
--out <file> – Specifies the output file ``decrypted-cbc.txt``.
--K – Provides the encryption key in hexadecimal format.
--iv – Provides the Initialization Vector (IV) in hexadecimal format, which matches the IV used during encryption.
+- ciphertype – We used -aes-128-cbc to select the AES-128 cipher in CBC mode.
+- d – Indicates decryption.
+- in <file> – Specifies the input file, which is ``cipher-cbc.bin``.
+- out <file> – Specifies the output file ``decrypted-cbc.txt``.
+- K – Provides the encryption key in hexadecimal format.
+- iv – Provides the Initialization Vector (IV) in hexadecimal format, which matches the IV used during encryption.
 
 # CTR
 
@@ -156,12 +156,12 @@ To decrypt the file encrypted with CTR mode, we use the following command:
 
 The flags specified were:
 
--ciphertype – We used -aes-128-ctr to select the AES-128 cipher in CTR mode.
--d – Indicates decryption.
--in <file> – Specifies the input file, which is ``cipher-ctr.bin``.
--out <file> – Specifies the output file ``decrypted-ctr.txt``.
--K – Provides the encryption key in hexadecimal format.
--iv – Provides the Initialization Vector (IV) in hexadecimal format, which matches the IV used during encryption.
+- ciphertype – We used -aes-128-ctr to select the AES-128 cipher in CTR mode.
+- d – Indicates decryption.
+- in <file> – Specifies the input file, which is ``cipher-ctr.bin``.
+- out <file> – Specifies the output file ``decrypted-ctr.txt``.
+- K – Provides the encryption key in hexadecimal format.
+- iv – Provides the Initialization Vector (IV) in hexadecimal format, which matches the IV used during encryption.
 
 
 # Comparison
@@ -210,8 +210,9 @@ In this challenge we want to decipher a text, that was ciphered using a ``Vigen�
 A text was encrypted using a ``Vigenère cipher``. A ``Vigenère cipher`` is a substitution cipher that encrypts text by shifting it according to a repeated key.
 
 How it works:
-1 - Write the message and repeat the key until it matches the text to be encrypted.
-2 - Add the corresponding indexes and then do the absolute value of the size of the text to have the encrypted symbol.
+
+1. Write the message and repeat the key until it matches the text to be encrypted.
+2. Add the corresponding indexes and then do the absolute value of the size of the text to have the encrypted symbol.
 
 In this case, the size is going to be 36, where "A" has index 0, "H" index 7, "Z" index 25, "0" index 26 and "9" index 35.
 
