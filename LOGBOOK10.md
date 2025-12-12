@@ -19,8 +19,6 @@ We added the following entry to `/etc/hosts`:
 
 After modifying the hosts file, we verified that the hostname resolved correctly by using the `ping` command. Successful responses confirmed the mapping was working and that the web server at **10.9.0.80** was reachable.
 
-![//](Images/logbook10/setup01.png)
-
 Once DNS resolution was confirmed to be functioning properly, we proceeded to build and launch the Docker environment required for the SEED Hash Length Extension Attack lab. The following commands were used:
 
 ```bash
