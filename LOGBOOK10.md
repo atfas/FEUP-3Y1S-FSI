@@ -193,7 +193,7 @@ we obtained the final URL:
 http://www.seedlab-hashlen.com/?myname=AfonsoSaraiva&uid=1001&lstcmd=1%80%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%01%68&download=secret.txt&mac=6061da4c108446ff178561241cb11a592cfc60dbdd180d9aaddc4b0bbe0913e5
 ```
 
-As shown below, the attack was successful — the server accepted our forged MAC and executed the unauthorized `download=secret.txt` command.
+As shown below, the attack was successful, the server accepted our forged MAC and executed the unauthorized `download=secret.txt` command.
 
 ![//](Images/logbook10/task1-07.PNG)
 
