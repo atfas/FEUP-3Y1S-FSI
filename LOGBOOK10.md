@@ -71,7 +71,7 @@ For our request, the raw string used to compute the MAC was:
 We generated the SHA-256 digest by running the following command:
 
 ```bash
-echo -n "12345:myname=AfonsoSaraiva&uid=1001&lstcmd=1" | sha256sum
+echo -n "123456:myname=AfonsoSaraiva&uid=1001&lstcmd=1" | sha256sum
 ```
 
 ![//](Images/logbook10/task1-01.PNG)
