@@ -36,7 +36,7 @@ $ docker ps
 ```
 
 
-![//](Images/logbook10/setup03.png)
+![//](Images/logbook10/setup03.PNG)
 
 # Lab Tasks
 ## Task 1 – Sending a Benign Request to the Server
