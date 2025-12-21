@@ -17,7 +17,7 @@ The HTTPS web server we used was the "www.danielmarques2025.com" server. In orde
 
 ## Task \#1: Becoming a Certificate Authority
 
-In this task, n this lab, we need to create digital certificates. We will become a root CA ourselves, and then use this CA to issue certificate for others. In this task, we will make ourselves a root CA, and generate a certificate for this CA. Unlike other certificates, which are usually signed by another CA, the root CA’s certificates are self-signed.
+In this task, in this lab, we need to create digital certificates. We will become a root CA ourselves, and then use this CA to issue certificate for others. In this task, we will make ourselves a root CA, and generate a certificate for this CA. Unlike other certificates, which are usually signed by another CA, the root CA’s certificates are self-signed.
 
 First, in order to use OpenSSL to create certificates, we must have a configuration file. In our case we created a copy of the configuration file called ``MyCA openssl.cnf``. The image below shows the CA_Default configuration settings we must have. The only thing we had to change here was uncomment the line related to ``unique_subject``, to allow the creation of certifications with the same subject.
 
@@ -27,7 +27,7 @@ Next we must  generate a self-signed certificate for our CA. This means that thi
 
 ![//](Images/logbook11/task1-CAgenerate.png)
 
-The output of the command are stored in two files: ca.key and ca.crt. The file ca.key contains the CA’s private key, while ca.crt contains the public-key certificate.
+The output of the command is stored in two files: ca.key and ca.crt. The file ca.key contains the CA’s private key, while ca.crt contains the public-key certificate.
 
 Its possible to check the content of the X509 certificate and the RSA key, we can do the command ``openssl x509 -in ca.crt -text -noout`` for the certificate and ``openssl rsa -in ca.key -text -noout`` for the key. We can see the output for each one below.
 
@@ -48,7 +48,7 @@ There is a lot of important information in both of these outputs.
 
 ## What part of the certificate indicates this is a CA’s certificate?
 
-The certificate is identified as a Certificate Authority (CA) certificate based on the Basic Constraints extension. Specifically, the following field explicitly designates the certificate as a CA and marks the constraint as critical
+The certificate is identified as a Certificate Authority (CA) certificate based on the Basic Constraints extension. Specifically, the following field explicitly designates the certificate as a CA and marks the constraint as critical:
 
 X509v3 Basic Constraints: critical
     CA:TRUE
@@ -124,23 +124,22 @@ For that we must first change the ``MyCA_openssl.cnf`` file, by uncommenting the
 
 ![//](Images/logbook11/task3-configfile.png)
 
-Next, we use the following command to turn our certifica signing request, ``server.csr`` into a X509 certificate, ``server.crt`` using the CA's ``ca.crt`` and ``ca.key``.
+Next, we use the following command to turn our certificate signing request, ``server.csr`` into a X509 certificate, ``server.crt`` using the CA's ``ca.crt`` and ``ca.key``.
 
 ![//](Images/logbook11/task3-result.png)
 
-We use the policy anything policy defined in the configuration file. This is not the default policy; the default policy has more restriction, requiring some of the subject information in the request to match those in the CA’s certificate. The policy used in the command, as indicated by its name, does not enforce any matching rule.
+We use the policy, anything policy defined in the configuration file. This is not the default policy; the default policy has more restriction, requiring some of the subject information in the request to match those in the CA’s certificate. The policy used in the command, as indicated by its name, does not enforce any matching rule.
 
 ## Task \#4: Deploying Certificate in an Apache-Based HTTPS Website
 
 In this task, we will see how public-key certificates are used by websites to secure web browsing. We will set up an HTTPS website based Apache.
 
-First, we must change the dockerfile, so that the files that are sent to the server match the ones we want and not the default ones that were provided
+First, we must change the dockerfile, so that the files that are sent to the server match the ones we want and not the default ones that were provided:
 
 ![//](Images/logbook11/task4-dockerfile.png)
 
 An Apache server can simultaneously host multiple websites. It needs to know the directory where
-a website’s files are stored. This is done via its VirtualHost file, located in the /etc/apache2/
-sites-available directory. In our container, we have created a file called ``danielmarques2025_apache_ssl.conf`` which we copied from the provided one and changed the entries to our example.
+a website’s files are stored. This is done via its VirtualHost file, located in the /etc/apache2/sites-available directory. In our container, we have created a file called ``danielmarques2025_apache_ssl.conf`` which we copied from the provided one and changed the entries to our example.
 
 ![//](Images/logbook11/task4-apachefile.png)
 
@@ -194,7 +193,7 @@ First we generated the certificate for Reddit using the CA's private key
 
 ![//](Images/logbook11/task6-CAgenerate.png)
 
-We confirm that now the certificate is for the domain we're trying to impersonate
+We confirm that now the certificate is for the domain we're trying to impersonate:
 
 ![//](Images/logbook11/task6-result.png)
 
