@@ -200,4 +200,6 @@ We confirm that now the certificate is for the domain we're trying to impersonat
 
 With the new certificate, signed by our root CA that is trusted by Firefox, we visited ``https://www.reddit.com`` again, and this time, the browser showed no warnings when visiting ``https://www.reddit.com``, which means our attack was successful.
 
+![//](Images/logbook11/task6-reddit.png)
+
 In conclusion, this task demonstrated that compromising a Certificate Authority enables undetectable man-in-the-middle attacks against virtually any website. Although our experiment used a self-created test CA, the same attack would be equally effective if the private key of a commercial CA were compromised.
