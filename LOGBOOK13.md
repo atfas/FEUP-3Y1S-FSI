@@ -31,7 +31,7 @@ The output confirmed that three containers were successfully running:
 
 ### Identifying the Network Interface
 
-After starting the containers, we needed to identify the network interface created by Docker for communication between the VM and containers. The network uses the IP prefix 10.9.0.0/24, with the VM assigned IP address 10.9.0.1.
+After starting the containers, we needed to identify the network interface created by Docker for communication between the VM and the containers. The network uses the IP prefix 10.9.0.0/24, with the VM assigned the IP address 10.9.0.1.
 
 We used the `ifconfig` command to list all network interfaces and locate the one corresponding to our Docker network:
 ```bash
@@ -55,7 +55,7 @@ a.show()
 
 ### Testing Scapy - Creating a Simple IP Packet
 
-We created a test script called `test_scapy.py` to verify that Scapy was working correctly in our environment. The script creates a IP packet and displays its fields.
+We created a test script called `test_scapy.py` to verify that Scapy was working correctly in our environment. The script creates an IP packet and displays its fields.
 
 First, we accessed the seed-attacker container:
 ```bash
@@ -285,7 +285,7 @@ The victim machine (hostB) accepted the spoofed packet without any authenticatio
 
 ### Objective
 
-The objective of this task is to estimate the distance, in terms of number of routers, between your VM and a selected destination. 
+The objective of this task is to estimate the distance, in terms of number of routers, between our VM and a selected destination. 
 
 We did this by implementing a traceroute tool using Scapy.
 
